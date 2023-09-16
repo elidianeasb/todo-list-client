@@ -1,5 +1,7 @@
 import axios from "axios"
 
+const USER_EMAIL = "eli@gmail.com"
+
 export function getAllTasks() {
     const promise = new Promise<Task[]>((resolve, reject) => {
         axios.get('http://localhost:8080/tasks').then((response) => {
@@ -13,8 +15,8 @@ export function getAllTasks() {
 }
 
 export function createTask(text: String) {
-    const promise = new Promise<void>((resolve, reject) => {
-        axios.post('http://localhost:8080/tasks?email=eli@gmail.com', {
+    const promise = new Promise<Task>((resolve, reject) => {
+        axios.post(`http://localhost:8080/tasks?email=${USER_EMAIL}`, {
             "text": text
         }).then((response) => resolve(response.data))        
         .catch((error) => {
@@ -26,8 +28,8 @@ export function createTask(text: String) {
 }
 
 export function deleteTaskById(taskId: Number | String) {
-    const promise = new Promise<void>((resolve, reject) => {
-        axios.delete(`http://localhost:8080/tasks/${taskId}?email=eli@gmail.com`)
+    const promise = new Promise<Task>((resolve, reject) => {
+        axios.delete(`http://localhost:8080/tasks/${taskId}?email=${USER_EMAIL}`)
         .then((response) => resolve(response.data))        
         .catch((error) => {
             console.error(error)
@@ -38,7 +40,7 @@ export function deleteTaskById(taskId: Number | String) {
 }
 
 export function completeTaskById(taskId: Number | String) {
-    const promise = new Promise<void>((resolve, reject) => {
+    const promise = new Promise<Task>((resolve, reject) => {
         axios.post(`http://localhost:8080/tasks/${taskId}/complete`)
         .then((response) => resolve(response.data))        
         .catch((error) => {
@@ -50,7 +52,7 @@ export function completeTaskById(taskId: Number | String) {
 }
 
 export function editTaskById(taskId: Number | String, text: String) {
-    const promise = new Promise<any>((resolve, reject) => {
+    const promise = new Promise<Task>((resolve, reject) => {
         axios.put(`http://localhost:8080/tasks/${taskId}`, {
             "text": text,
             "completed": false
