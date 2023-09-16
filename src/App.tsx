@@ -29,37 +29,19 @@ function App() {
         })
     }, [])
 
-    const taskCreated = () => {
+    const refreshTaskList = () => {
         getAllTasks().then((tasks) => {
             setTasks(() => [...tasks])    
         }).catch((message) => {
             console.error(message)
         })
     }
-
-    const taskDeleted = () => {
-        getAllTasks().then((tasks) => {
-            setTasks(() => [...tasks])    
-        }).catch((message) => {
-            console.error(message)
-        })
-    }
-
-    const taskCompleted = () => {
-        getAllTasks().then((tasks) => {
-            setTasks(() => [...tasks])    
-        }).catch((message) => {
-            console.error(message)
-        })
-    }
-
-
     
     return (
         <div className="App">
             <Title />
-            <AddTask taskCreated={taskCreated}/>
-            <TaskList tasks={tasks} taskDeleted={taskDeleted} taskCompleted={taskCompleted} />
+            <AddTask refreshTaskList={refreshTaskList}/>
+            <TaskList tasks={tasks} refreshTaskList={refreshTaskList} />
         </div>
     );
 }

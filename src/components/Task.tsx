@@ -6,11 +6,10 @@ import { AiFillEdit } from 'react-icons/ai';
 
 interface TaskProps {
   task: Task,
-  taskDeleted: () => void
-  taskCompleted: () => void
+  refreshTaskList: () => void
 }
 
-function Task({ task, taskDeleted, taskCompleted }: TaskProps) {
+function Task({ task, refreshTaskList }: TaskProps) {
 
   const [text, setText] = useState(task.text)
   const [isEditing, setIsEditing] = useState(false)
@@ -18,7 +17,7 @@ function Task({ task, taskDeleted, taskCompleted }: TaskProps) {
   const deleteTask = () => {
     deleteTaskById(task.identifier)
       .then(() => {
-        taskDeleted()
+        refreshTaskList()
       })
       .catch((error) => {
         console.error(error)
@@ -28,7 +27,7 @@ function Task({ task, taskDeleted, taskCompleted }: TaskProps) {
   const completeTask = () => {
     completeTaskById(task.identifier)
       .then(() => {
-        taskCompleted()
+        refreshTaskList()
       })
       .catch((error) => {
         console.error(error)
@@ -38,7 +37,7 @@ function Task({ task, taskDeleted, taskCompleted }: TaskProps) {
     //editTaskById(task.identifier)
     editTaskById(task.identifier, text)
       .then(() => {
-        taskCompleted()
+        refreshTaskList()
         setIsEditing(false)
       })
       .catch((error) => {

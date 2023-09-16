@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { createTask } from '../clients/TodoListServer'
 
 interface AddTaskProps {
-  taskCreated: () => void
+  refreshTaskList: () => void
 }
 
-function AddTask({taskCreated}: AddTaskProps) {
+function AddTask({refreshTaskList}: AddTaskProps) {
   const [text, setText] = useState("")
 
   const addTask = () => {
     createTask(text).then((response) => {
       console.log(response)
-      taskCreated()
+      refreshTaskList()
       setText("")
     })
   }

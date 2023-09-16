@@ -3,18 +3,16 @@ import Task from './Task'
 
 interface TaskListProps {
   tasks: Task[]
-  taskDeleted: () => void
-  taskCompleted: () => void
-
+  refreshTaskList: () => void
 }
 
-function TaskList({ tasks, taskDeleted, taskCompleted}: TaskListProps) {
+function TaskList({ tasks, refreshTaskList}: TaskListProps) {
   console.log(tasks)
   return (
     <div className='task-list'>
       {
         tasks.map((task, index) => (
-          <Task key={index} task={task} taskDeleted={taskDeleted} taskCompleted={taskCompleted} />
+          <Task key={index} task={task} refreshTaskList={refreshTaskList} />
         ))
       }
     </div>
